@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Word Duel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Kanit:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="bg-shape shape-one"></div>
+  <div class="bg-shape shape-two"></div>
+
+  <main class="app-shell">
+    <header class="topbar">
+      <h1>Word Duel</h1>
+      <p>Socket-based multiplayer game: each round a different player sets the word, others guess for points.</p>
+    </header>
+
+    <section id="joinCard" class="card join-card">
+      <h2>Join Match</h2>
+      <p>Open this page in multiple browser windows. Setter rotates every round and guessers score when they solve the word.</p>
+      <div class="row">
+        <input id="nameInput" type="text" maxlength="24" placeholder="Enter your name">
+        <button id="joinBtn" class="btn primary">Join</button>
+      </div>
+      <p id="joinError" class="error"></p>
+    </section>
+
+    <section id="gameCard" class="card game-card hidden">
+      <div class="status-grid">
+        <div>
+          <span class="label">You are</span>
+          <strong id="roleText">-</strong>
+        </div>
+        <div>
+          <span class="label">Current Setter</span>
+          <strong id="setterText">-</strong>
+        </div>
+        <div>
+          <span class="label">Players</span>
+          <strong id="guesserText">-</strong>
+        </div>
+      </div>
+
+      <div class="scoreboard">
+        <span class="label">Current Turn</span>
+        <strong id="turnText">-</strong>
+      </div>
+
+      <div class="scoreboard">
+        <span class="label">Scores</span>
+        <strong id="scoreText">No scores yet</strong>
+      </div>
+
+      <div class="session-actions">
+        <button id="clearBtn" class="btn danger">Clear Multiplayer</button>
+        <button id="leaveBtn" class="btn ghost">Join as Different Player</button>
+      </div>
+
+      <p id="messageText" class="message">Waiting...</p>
+
+      <div class="hangman-wrap" aria-live="polite" aria-label="Hangman progress">
+        <svg class="hangman-board" viewBox="0 0 220 240" role="img" aria-label="Hangman drawing">
+          <line class="gallows" x1="30" y1="220" x2="150" y2="220"></line>
+          <line class="gallows" x1="55" y1="220" x2="55" y2="25"></line>
+          <line class="gallows" x1="55" y1="25" x2="145" y2="25"></line>
+          <line class="gallows" x1="145" y1="25" x2="145" y2="50"></line>
+
+          <circle id="hm-head" class="hangman-part" cx="145" cy="68" r="18"></circle>
+          <line id="hm-body" class="hangman-part" x1="145" y1="86" x2="145" y2="138"></line>
+          <line id="hm-left-arm" class="hangman-part" x1="145" y1="98" x2="120" y2="122"></line>
+          <line id="hm-right-arm" class="hangman-part" x1="145" y1="98" x2="170" y2="122"></line>
+          <line id="hm-left-leg" class="hangman-part" x1="145" y1="138" x2="122" y2="172"></line>
+          <line id="hm-right-leg" class="hangman-part" x1="145" y1="138" x2="168" y2="172"></line>
+        </svg>
+      </div>
+
+      <div id="maskedWord" class="masked-word">_ _ _ _</div>
+
+      <div class="stats">
+        <div>
+          <span class="label">Your Mistakes</span>
+          <strong id="mistakesText">0 / 6</strong>
+        </div>
+        <div>
+          <span class="label">Correct Letters</span>
+          <strong id="correctText">None</strong>
+        </div>
+        <div>
+          <span class="label">Wrong Letters</span>
+          <strong id="wrongText">None</strong>
+        </div>
+      </div>
+
+      <div id="setterPanel" class="panel hidden">
+        <h3>Setter Panel</h3>
+        <div class="row">
+          <input id="wordInput" type="password" placeholder="Set secret word (letters only)">
+          <button id="setWordBtn" class="btn primary">Start Round</button>
+        </div>
+      </div>
+
+      <div id="guesserPanel" class="panel hidden">
+        <h3>Guesser Panel</h3>
+        <div class="row">
+          <input id="guessInput" type="text" placeholder="Type one letter or full word">
+          <button id="guessBtn" class="btn primary">Submit Guess</button>
+          <button id="resetBtn" class="btn ghost">Next Setter Round</button>
+        </div>
+      </div>
+
+      <p id="actionError" class="error"></p>
+    </section>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>
